@@ -1,0 +1,14 @@
+patient_id,first_name,last_name,birth_date,gender,address_line,city,state,postal_code,phone,email,observation_type,observation_value,observation_unit,observation_date
+P001,John,Smith,1985-03-15,male,123 Main St,Boston,MA,02101,555-123-4567,john.smith@email.com,blood_pressure_systolic,120,mmHg,2024-01-15
+P001,John,Smith,1985-03-15,male,123 Main St,Boston,MA,02101,555-123-4567,john.smith@email.com,blood_pressure_diastolic,80,mmHg,2024-01-15
+P001,John,Smith,1985-03-15,male,123 Main St,Boston,MA,02101,555-123-4567,john.smith@email.com,heart_rate,72,bpm,2024-01-15
+P002,Jane,Doe,1990-07-22,female,456 Oak Ave,Cambridge,MA,02139,555-234-5678,jane.doe@email.com,blood_pressure_systolic,118,mmHg,2024-01-16
+P002,Jane,Doe,1990-07-22,female,456 Oak Ave,Cambridge,MA,02139,555-234-5678,jane.doe@email.com,blood_pressure_diastolic,75,mmHg,2024-01-16
+P002,Jane,Doe,1990-07-22,female,456 Oak Ave,Cambridge,MA,02139,555-234-5678,jane.doe@email.com,body_temperature,98.6,F,2024-01-16
+P003,Robert,Johnson,1978-11-08,male,789 Pine Rd,Somerville,MA,02143,555-345-6789,robert.j@email.com,blood_glucose,95,mg/dL,2024-01-17
+P003,Robert,Johnson,1978-11-08,male,789 Pine Rd,Somerville,MA,02143,555-345-6789,robert.j@email.com,body_weight,180,lb,2024-01-17
+P004,Maria,Garcia,1995-02-28,female,321 Elm St,Brookline,MA,02445,555-456-7890,maria.garcia@email.com,heart_rate,68,bpm,2024-01-18
+P004,Maria,Garcia,1995-02-28,female,321 Elm St,Brookline,MA,02445,555-456-7890,maria.garcia@email.com,oxygen_saturation,98,%,2024-01-18
+P005,Michael,Brown,1982-09-12,male,654 Cedar Ln,Newton,MA,02458,555-567-8901,m.brown@email.com,blood_pressure_systolic,135,mmHg,2024-01-19
+P005,Michael,Brown,1982-09-12,male,654 Cedar Ln,Newton,MA,02458,555-567-8901,m.brown@email.com,blood_pressure_diastolic,88,mmHg,2024-01-19
+P005,Michael,Brown,1982-09-12,male,654 Cedar Ln,Newton,MA,02458,555-567-8901,m.brown@email.com,body_weight,195,lb,2024-01-19

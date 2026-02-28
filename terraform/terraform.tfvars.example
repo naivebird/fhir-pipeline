@@ -1,0 +1,17 @@
+# Copy this file to terraform.tfvars and fill in your values
+# terraform.tfvars is gitignored for security
+
+project_id = "your-gcp-project-id"
+region     = "us-central1"
+location   = "us-central1"
+
+# Optional: customize these if needed
+# environment            = "dev"
+# bucket_name_suffix     = "fhir-landing"
+# dataset_id             = "fhir_dataset"
+# fhir_store_id          = "fhir_r4_store"
+# harmonization_service_name = "fhir-harmonization"
+# api_service_name       = "fhir-api"
+
+# API key for securing the REST API - CHANGE THIS IN PRODUCTION
+api_key = "your-secure-api-key-here"

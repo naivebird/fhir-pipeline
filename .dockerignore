@@ -1,0 +1,12 @@
+node_modules
+dist
+.git
+.gitignore
+*.md
+terraform
+sample-data
+.claude
+*.log
+.env*
+Dockerfile*
+.dockerignore
