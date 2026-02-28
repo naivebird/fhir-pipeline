@@ -3,40 +3,7 @@
 A cloud-native, event-driven healthcare data pipeline on Google Cloud Platform. Ingests data from multiple formats (CSV, HL7v2, Synthea), harmonizes to FHIR R4, and exposes via a secure REST API.
 
 ## Architecture
-
-```
-┌─────────────────────────────────────────────────────────────────────┐
-│                         Data Sources                                │
-│    CSV Files    │    HL7v2 Messages    │    Synthea FHIR Bundles   │
-└────────┬────────┴──────────┬───────────┴────────────┬───────────────┘
-         │                   │                        │
-         ▼                   ▼                        ▼
-┌─────────────────────────────────────────────────────────────────────┐
-│              GCS Landing Bucket (Event Source)                      │
-│         csv-ehr/    │    hl7v2/    │    synthea/                   │
-└────────────────────────────────┬────────────────────────────────────┘
-                                 │ Object Finalize Event (Eventarc)
-                                 ▼
-┌─────────────────────────────────────────────────────────────────────┐
-│                 Cloud Run: Harmonization Service                    │
-│    • Detects format from path prefix                                │
-│    • CSV/HL7v2: Parse → Transform → FHIR Bundle                    │
-│    • Synthea: Pass through (already FHIR)                          │
-└────────────────────────────────┬────────────────────────────────────┘
-                                 │
-                                 ▼
-┌─────────────────────────────────────────────────────────────────────┐
-│              Cloud Healthcare API (FHIR R4 Store)                   │
-│                    Patient │ Observation │ ...                      │
-└───────────────┬─────────────────────────────────┬───────────────────┘
-                │                                 │
-                ▼                                 ▼
-┌───────────────────────────┐     ┌───────────────────────────────────┐
-│   Cloud Run: REST API     │     │   BigQuery (Streaming Export)     │
-│   • API key auth          │     │   • Analytics queries             │
-│   • Read-only proxy       │     │   • Dashboards                    │
-└───────────────────────────┘     └───────────────────────────────────┘
-```
+![FHIR-pipeline](https://github.com/user-attachments/assets/6f54a873-e71c-44d5-9bb1-2988d7c9d15d)
 
 ## Quick Start
 
@@ -74,9 +41,12 @@ export PROJECT_ID=your-project-id
 ```bash
 # Upload data (triggers harmonization automatically)
 gsutil cp sample-data/patients.csv gs://YOUR_BUCKET/csv-ehr/batch_001/patients.csv
+gsutil cp sample-data/messages.hl7 gs://YOUR_BUCKET/hl7v2/batch_001/messages.hl7
 
 # Query the API
 curl "https://YOUR_API_URL/patients?_count=5&api_key=YOUR_KEY"
+curl "https://YOUR_API_URL/observations?_count=5&api_key=YOUR_KEY"
+curl "https://YOUR_API_URL/analytics/summary?api_key=YOUR_KEY"
 ```
 
 ## API Reference
