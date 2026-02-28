@@ -41,9 +41,12 @@ export PROJECT_ID=your-project-id
 ```bash
 # Upload data (triggers harmonization automatically)
 gsutil cp sample-data/patients.csv gs://YOUR_BUCKET/csv-ehr/batch_001/patients.csv
+gsutil cp sample-data/messages.hl7 gs://YOUR_BUCKET/hl7v2/batch_001/messages.hl7
 
 # Query the API
 curl "https://YOUR_API_URL/patients?_count=5&api_key=YOUR_KEY"
+curl "https://YOUR_API_URL/observations?_count=5&api_key=YOUR_KEY"
+curl "https://YOUR_API_URL/analytics/summary?api_key=YOUR_KEY"
 ```
 
 ## API Reference
