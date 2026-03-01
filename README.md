@@ -3,7 +3,8 @@
 A cloud-native, event-driven healthcare data pipeline on Google Cloud Platform. Ingests data from multiple formats (CSV, HL7v2, Synthea), harmonizes to FHIR R4, and exposes via a secure REST API.
 
 ## Architecture
-![FHIR-pipeline](https://github.com/user-attachments/assets/6f54a873-e71c-44d5-9bb1-2988d7c9d15d)
+![FHIR-pipeline](https://github.com/user-attachments/assets/00da22f9-8480-4407-819d-9e6fda8dba66)
+
 
 ## Quick Start
 
