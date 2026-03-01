@@ -39,14 +39,9 @@ export PROJECT_ID=your-project-id
 ### 3. Test the Pipeline
 
 ```bash
-# Upload data (triggers harmonization automatically)
-gsutil cp sample-data/patients.csv gs://YOUR_BUCKET/csv-ehr/batch_001/patients.csv
-gsutil cp sample-data/messages.hl7 gs://YOUR_BUCKET/hl7v2/batch_001/messages.hl7
-
-# Query the API
-curl "https://YOUR_API_URL/patients?_count=5&api_key=YOUR_KEY"
-curl "https://YOUR_API_URL/observations?_count=5&api_key=YOUR_KEY"
-curl "https://YOUR_API_URL/analytics/summary?api_key=YOUR_KEY"
+# Upload sample data (triggers harmonization automatically)
+gsutil cp sample-data/patients.csv gs://YOUR_BUCKET/csv-ehr/patients.csv
+gsutil cp sample-data/messages.hl7 gs://YOUR_BUCKET/hl7v2/messages.hl7
 ```
 
 ## API Reference
@@ -62,6 +57,18 @@ Base URL: `https://fhir-api-xxxxx.run.app`
 | `GET /analytics/summary` | Aggregated statistics |
 
 **Authentication:** Pass `api_key` as query parameter or `x-api-key` header.
+
+**Example:**
+```bash
+# Set your API endpoint and key
+export API=https://YOUR_API_URL
+export KEY=YOUR_API_KEY
+
+# Query endpoints
+curl "$API/patients?_count=5&api_key=$KEY"
+curl "$API/observations?_count=10&api_key=$KEY"
+curl "$API/analytics/summary?api_key=$KEY"
+```
 
 ## Supported Data Formats
 
@@ -102,28 +109,11 @@ cd synthea
 ### Upload to Pipeline
 
 ```bash
-# Set your bucket name
-export BUCKET=YOUR_PROJECT_ID-fhir-landing
-
 # Upload all patient bundles
-gcloud storage cp output/fhir/*.json gs://$BUCKET/synthea/
-
-# Or upload specific files
-gcloud storage cp output/fhir/John_Doe.json gs://$BUCKET/synthea/
+gcloud storage cp output/fhir/*.json gs://YOUR_BUCKET/synthea/
 ```
 
-### Verify Results
-
-```bash
-# Check harmonization logs
-gcloud logging read "resource.type=cloud_run_revision AND resource.labels.service_name=fhir-harmonization" --limit=5
-
-# Query patients via API
-curl "https://YOUR_API_URL/patients?_count=10&api_key=YOUR_KEY"
-
-# Query observations (Synthea generates many per patient)
-curl "https://YOUR_API_URL/observations?_count=20&api_key=YOUR_KEY"
-```
+Then query via the API (see [API Reference](#api-reference)).
 
 ### Synthea Output Contents
 
