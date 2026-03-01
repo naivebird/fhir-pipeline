@@ -62,7 +62,7 @@ Base URL: `https://fhir-api-xxxxx.run.app`
 **Example:**
 ```bash
 # Authenticate with x-api-key header:
-curl -H "x-api-key: $YOUR_API_KEY" "$YOUR_API_URL/patients?_count=5
+curl -H "x-api-key: $YOUR_API_KEY" "$YOUR_API_URL/patients?_count=5"
 
 # Authenticate with query parameter:
 curl "$YOUR_API_URL/observations?_count=5&api_key=$YOUR_API_KEY"
