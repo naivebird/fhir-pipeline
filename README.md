@@ -61,14 +61,11 @@ Base URL: `https://fhir-api-xxxxx.run.app`
 
 **Example:**
 ```bash
-# Set your API endpoint and key
-export API=https://YOUR_API_URL
-export KEY=YOUR_API_KEY
+# Authenticate with x-api-key header:
+curl -H "x-api-key: $YOUR_API_KEY" "$YOUR_API_URL/patients?_count=5
 
-# Query endpoints
-curl "$API/patients?_count=5&api_key=$KEY"
-curl "$API/observations?_count=10&api_key=$KEY"
-curl "$API/analytics/summary?api_key=$KEY"
+# Authenticate with query parameter:
+curl "$YOUR_API_URL/observations?_count=5&api_key=$YOUR_API_KEY"
 ```
 
 ## Supported Data Formats
