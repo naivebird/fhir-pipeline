@@ -94,8 +94,20 @@ app.post('/', async (req: Request, res: Response) => {
     let responseData: Record<string, unknown>;
 
     if (fileType === 'synthea') {
-      // Synthea files are already FHIR bundles - just parse and POST directly
+      // Synthea files are already FHIR bundles - parse and make idempotent
       bundle = JSON.parse(content);
+
+      // Convert POST entries to PUT using fullUrl UUID as resource ID
+      // This prevents duplicates if the same file is processed more than once
+      for (const entry of bundle.entry || []) {
+        if (entry.request?.method === 'POST' && entry.fullUrl?.startsWith('urn:uuid:')) {
+          const uuid = entry.fullUrl.replace('urn:uuid:', '');
+          entry.resource.id = uuid;
+          entry.request.method = 'PUT';
+          entry.request.url = `${entry.resource.resourceType}/${uuid}`;
+        }
+      }
+
       console.log(`Loaded Synthea FHIR bundle with ${bundle.entry?.length || 0} entries`);
 
       // Execute bundle against FHIR store
