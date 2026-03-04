@@ -83,8 +83,13 @@ curl "$YOUR_API_URL/observations?_count=5&api_key=$YOUR_API_KEY"
 ### Prerequisites
 
 ```bash
-# Install Java 17 (required for Synthea)
-brew install openjdk@17
+# Install Java 21 (required for Synthea)
+brew install --cask temurin@21
+
+# Set JAVA_HOME
+export JAVA_HOME=$(/usr/libexec/java_home -v 21)
+export PATH="$JAVA_HOME/bin:$PATH"
+java -version
 ```
 
 ### Install Synthea
