@@ -87,8 +87,19 @@ app.post('/', async (req: Request, res: Response) => {
     console.log(`Processing ${fileType} file: ${fileName}`);
 
     // Download file from GCS
-    const content = await gcsClient.downloadFile(bucket, fileName);
-    console.log(`Downloaded file: ${content.length} bytes`);
+    let content: string;
+    try {
+      content = await gcsClient.downloadFile(bucket, fileName);
+      console.log(`Downloaded file: ${content.length} bytes`);
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : String(err);
+      if (message.includes('No such object') || message.includes('404')) {
+        console.log(`File not found (likely deleted): ${fileName}. Acknowledging event.`);
+        res.status(200).json({ message: 'File not found, skipping' });
+        return;
+      }
+      throw err;
+    }
 
     let bundle;
     let responseData: Record<string, unknown>;
